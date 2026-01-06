@@ -469,7 +469,7 @@ def main():
     # 示例：假设你已经有其中1个满命、1个4命、其余未拥有
     standard_5stars_owned = [1, 2, -1, 6, 5, 3, 3, 4]
 
-    num_runs = 1  # 改成 50000 跑统计
+    num_runs = 50000
 
     simulator = GenshinWishSimulator(
         char_pity_5=char_pity_5,
@@ -503,11 +503,40 @@ def main():
     else:
         stats = simulator.run_multiple_simulations(num_runs)
         print("===== 多次模拟统计结果 =====")
-        print(f"抽数统计: 均值={stats['wishes_stats']['mean']:.2f}, 方差={stats['wishes_stats']['var']:.2f}")
-        print(f"花费统计: 均值={stats['spent_stats']['mean']:.2f}, 方差={stats['spent_stats']['var']:.2f}")
-        print(f"平均通过星辉兑换的抽数: {stats['avg_glitter_wishes']:.2f}")
-        print(f"特殊道具统计: 均值={stats['special_items_stats']['mean']:.4f}")
-        print("概率分布图已保存为 'genshin_wish_simulation_results.png'")
+
+        print("抽数统计:")
+        print(f"  均值: {stats['wishes_stats']['mean']:.2f}")
+        print(f"  方差: {stats['wishes_stats']['var']:.2f}")
+        print(f"  标准差: {stats['wishes_stats']['std']:.2f}")
+        print(f"  10%分位数: {stats['wishes_stats']['percentiles'][10]:.2f}")
+        print(f"  25%分位数: {stats['wishes_stats']['percentiles'][25]:.2f}")
+        print(f"  50%分位数 (中位数): {stats['wishes_stats']['percentiles'][50]:.2f}")
+        print(f"  75%分位数: {stats['wishes_stats']['percentiles'][75]:.2f}")
+        print(f"  99%分位数: {stats['wishes_stats']['percentiles'][99]:.2f}")
+
+        print("\n花费统计 (CNY):")
+        print(f"  均值: {stats['spent_stats']['mean']:.2f}")
+        print(f"  方差: {stats['spent_stats']['var']:.2f}")
+        print(f"  标准差: {stats['spent_stats']['std']:.2f}")
+        print(f"  10%分位数: {stats['spent_stats']['percentiles'][10]:.2f}")
+        print(f"  25%分位数: {stats['spent_stats']['percentiles'][25]:.2f}")
+        print(f"  50%分位数 (中位数): {stats['spent_stats']['percentiles'][50]:.2f}")
+        print(f"  75%分位数: {stats['spent_stats']['percentiles'][75]:.2f}")
+        print(f"  99%分位数: {stats['spent_stats']['percentiles'][99]:.2f}")
+
+        print(f"\n平均通过星辉兑换的抽数: {stats['avg_glitter_wishes']:.2f}")
+
+        print("\n特殊道具统计:")
+        print(f"  均值: {stats['special_items_stats']['mean']:.4f}")
+        print(f"  方差: {stats['special_items_stats']['var']:.4f}")
+        print(f"  标准差: {stats['special_items_stats']['std']:.4f}")
+        print(f"  10%分位数: {stats['special_items_stats']['percentiles'][10]:.4f}")
+        print(f"  25%分位数: {stats['special_items_stats']['percentiles'][25]:.4f}")
+        print(f"  50%分位数 (中位数): {stats['special_items_stats']['percentiles'][50]:.4f}")
+        print(f"  75%分位数: {stats['special_items_stats']['percentiles'][75]:.4f}")
+        print(f"  99%分位数: {stats['special_items_stats']['percentiles'][99]:.4f}")
+
+        print("\n概率分布图已保存为 'genshin_wish_simulation_results.png'")
 
 if __name__ == "__main__":
     main()
